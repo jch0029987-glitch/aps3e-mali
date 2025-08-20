@@ -216,7 +216,7 @@ public:
 
 	// Apply patch (returns the number of entries applied)
 	void apply(std::vector<u32>& applied_total, const std::string& name, std::function<u8*(u32, u32)> mem_translate, u32 filesz = -1, u32 min_addr = 0);
-	
+
 	// Deallocate memory used by patches
 	void unload(const std::string& name);
 

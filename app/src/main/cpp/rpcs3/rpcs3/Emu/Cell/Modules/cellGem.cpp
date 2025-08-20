@@ -12,6 +12,7 @@
 #include "Emu/IdManager.h"
 #include "Emu/RSX/Overlays/overlay_cursor.h"
 #include "Input/pad_thread.h"
+#include "Emu/Cell/lv2/sys_memory.h"
 
 #ifdef HAVE_LIBEVDEV
 #include "Input/evdev_gun_handler.h"

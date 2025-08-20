@@ -4047,6 +4047,22 @@ void do_cell_atomic_128_store(u32 addr, const void* to_write)
 		auto& sdata = *vm::get_super_ptr<spu_rdata_t>(addr);
 		auto& res = *utils::bless<atomic_t<u128>>(vm::g_reservations + (addr & 0xff80) / 2);
 
+		if (std::memcmp(static_cast<const u8*>(to_write), &sdata, 16) == 0 && std::memcmp(static_cast<const u8*>(to_write) + 64, &sdata[64], 16) == 0)
+		{
+			const auto& write_data = *static_cast<const spu_rdata_t*>(to_write);
+			const u64 at_read_time = vm::reservation_acquire(addr);
+
+			if (!(at_read_time & 127))
+			{
+				if (cmp_rdata(sdata, write_data) && at_read_time ==  vm::reservation_acquire(addr) && cmp_rdata(sdata, write_data))
+				{
+					// Write of the same data (verified atomically)
+					vm::try_reservation_update(addr);
+					return;
+				}
+			}
+		}
+
 		for (u64 j = 0;; j++)
 		{
 			auto [_oldd, _ok] = res.fetch_op([&](u128& r)
@@ -4636,7 +4652,7 @@ u32 evaluate_spin_optimization(std::span<u8> stats, u64 evaluate_time, const cfg
 		add_count = 0;
 	}
 
-	if (inclined_for_responsiveness && std::count(old_stats.data(), old_stats.data() + 3, 0) >= 2)
+	if (stats.size() == 16 && inclined_for_responsiveness && std::count(old_stats.data(), old_stats.data() + 3, 0) >= 2)
 	{
 		add_count = 0;
 	}
@@ -4781,6 +4797,26 @@ bool spu_thread::process_mfc_cmd()
 								return true;
 							}
 
+							if (last_getllar != pc || last_getllar_lsa != ch_mfc_cmd.lsa)
+							{
+								getllar_busy_waiting_switch = umax;
+								getllar_spin_count = 0;
+								return true;
+							}
+
+							// Check if LSA points to an OUT buffer on the stack from a caller - unlikely to be a loop
+							if (last_getllar_lsa >= SPU_LS_SIZE - 0x10000 && last_getllar_lsa > last_getllar_gpr1)
+							{
+								auto cs = dump_callstack_list();
+
+								if (!cs.empty() && last_getllar_lsa > cs[0].second)
+								{
+									getllar_busy_waiting_switch = umax;
+									getllar_spin_count = 0;
+									return true;
+								}
+							}
+
 							getllar_spin_count = std::min<u32>(getllar_spin_count + 1, u16{umax});
 
 							if (getllar_busy_waiting_switch == umax && getllar_spin_count == 4)
@@ -4826,6 +4862,7 @@ bool spu_thread::process_mfc_cmd()
 
 							last_getllar = pc;
 							last_getllar_gpr1 = gpr[1]._u32[3];
+							last_getllar_lsa = ch_mfc_cmd.lsa;
 
 							if (getllar_busy_waiting_switch == 1)
 							{
@@ -6019,11 +6056,6 @@ s64 spu_thread::get_ch_value(u32 ch)
 
 		const usz seed = (utils::get_tsc() >> 8) % 100;
 
-#ifdef __linux__
-		const bool reservation_busy_waiting = false;
-#else
-		const bool reservation_busy_waiting = (seed + ((raddr == spurs_addr) ? 50u : 0u)) < g_cfg.core.spu_reservation_busy_waiting_percentage;
-#endif
 		usz cache_line_waiter_index = umax;
 
 		auto check_cache_line_waiter = [&]()
@@ -6160,7 +6192,7 @@ s64 spu_thread::get_ch_value(u32 ch)
 				{
 					if (utils::has_waitpkg())
 					{
-						__tpause(std::min<u32>(eventstat_spin_count, 10) * 500, 0x1);
+						__tpause(static_cast<u32>(std::min<u64>(eventstat_spin_count, 10) * 500), 0x1);
 					}
 					else
 					{
@@ -6173,7 +6205,7 @@ s64 spu_thread::get_ch_value(u32 ch)
 						};
 
 						// Provide the first X64 cache line of the reservation to be tracked
-						__mwaitx<check_wait_t>(std::min<u32>(eventstat_spin_count, 17) * 500, 0xf0, std::addressof(*resrv_mem), +rtime, vm::reservation_acquire(raddr));
+						__mwaitx<check_wait_t>(static_cast<u32>(std::min<u64>(eventstat_spin_count, 17) * 500), 0xf0, std::addressof(*resrv_mem), +rtime, vm::reservation_acquire(raddr));
 					}
 				}
 				else
@@ -6209,8 +6241,7 @@ s64 spu_thread::get_ch_value(u32 ch)
 					}
 				}
 
-				// Don't busy-wait with TSX - memory is sensitive
-				if (g_use_rtm || !reservation_busy_waiting)
+				if (true)
 				{
 					if (u32 work_count = g_spu_work_count)
 					{
@@ -6336,10 +6367,6 @@ s64 spu_thread::get_ch_value(u32 ch)
 						vm::reservation_notifier_notify(_raddr);
 					}
 #endif
-				}
-				else
-				{
-					busy_wait();
 				}
 
 				continue;
@@ -6814,7 +6841,7 @@ bool spu_thread::set_ch_value(u32 ch, u32 value)
 	fmt::throw_exception("Unknown/illegal channel in WRCH (ch=%d [%s], value=0x%x)", ch, ch < 128 ? spu_ch_name[ch] : "???", value);
 }
 
-extern void resume_spu_thread_group_from_waiting(spu_thread& spu)
+extern void resume_spu_thread_group_from_waiting(spu_thread& spu, std::array<shared_ptr<named_thread<spu_thread>>, 8>& notify_spus)
 {
 	const auto group = spu.group;
 
@@ -6828,7 +6855,7 @@ extern void resume_spu_thread_group_from_waiting(spu_thread& spu)
 	{
 		group->run_state = SPU_THREAD_GROUP_STATUS_SUSPENDED;
 		spu.state += cpu_flag::signal;
-		spu.state.notify_one();
+		ensure(spu.state & cpu_flag::suspend);
 		return;
 	}
 
@@ -6846,7 +6873,7 @@ extern void resume_spu_thread_group_from_waiting(spu_thread& spu)
 				thread->state -= cpu_flag::suspend;
 			}
 
-			thread->state.notify_one();
+			notify_spus[thread->index] = thread;
 		}
 	}
 }
