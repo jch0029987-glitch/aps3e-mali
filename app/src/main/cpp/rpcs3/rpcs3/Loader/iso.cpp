@@ -1,6 +1,4 @@
-//
-// Created by aenu on 2025/5/11.
-//
+
 #include "iso.h"
 #ifdef __ANDROID__
 #include <android/log.h>
@@ -69,8 +67,6 @@ bool iso_fs::load(){
 
 
 bool iso_fs::exists(const std::string& path){
-    if(path==":")
-        return true;
     return files.find(path)!=files.end();
 }
 
@@ -106,11 +102,23 @@ iso_fs::~iso_fs()
 
 template<const int VOLUME_TYPE>
 void iso_fs::parse(VolumeDescriptor& vd){
-    read_dir<VOLUME_TYPE>(vd.root_directory_record, ":");//std::nullopt);
+    //add root dir
+    {
+        const std::string root{ROOT};
+        files[root]={
+            .path=root,
+            .offset=vd.root_directory_record.extent_location.ne()*2048,
+            .size=vd.root_directory_record.data_length.ne(),
+            .time=0,
+            .is_dir=true
+        };
+        tree[root]=std::vector<entry_t>();
+    }
+    read_dir<VOLUME_TYPE>(vd.root_directory_record, std::string{ROOT});
 }
 
 template<const int VOLUME_TYPE>
-void iso_fs::read_dir(RootDirectoryRecord& dir_record, std::optional<std::string> path) {
+void iso_fs::read_dir(RootDirectoryRecord& dir_record, std::string path) {
     if(dir_record.extended_attribute_length!=0){
         //return;
     }
@@ -181,10 +189,10 @@ void iso_fs::read_dir(RootDirectoryRecord& dir_record, std::optional<std::string
         //    file_identifier=path.value()+"/"+file_identifier;
 
 
-        if(path.value()==":")
-            file_identifier = path.value() + file_identifier;
+        if(path==ROOT)
+            file_identifier = path + file_identifier;
         else
-            file_identifier = path.value() + "/" + file_identifier;
+            file_identifier = path + "/" + file_identifier;
 
 
 
@@ -231,6 +239,20 @@ void iso_fs::read_dir(RootDirectoryRecord& dir_record, std::optional<std::string
         }
 #else
 
+        auto recording_date_to_unix_time=[](const uint8_t recording_date[7])->time_t{
+            struct tm tm_time = {};
+
+            tm_time.tm_year = recording_date[0];
+            tm_time.tm_mon = recording_date[1] - 1;
+            tm_time.tm_mday = recording_date[2];
+            tm_time.tm_hour = recording_date[3];
+            tm_time.tm_min = recording_date[4];
+            tm_time.tm_sec = recording_date[5];
+
+            time_t unix_time = mktime(&tm_time);
+            return unix_time;
+        };
+
         if(auto it=files.find(file_identifier);it!=files.end()){
             it->second.size+=record.data_length.ne();
         }
@@ -239,13 +261,12 @@ void iso_fs::read_dir(RootDirectoryRecord& dir_record, std::optional<std::string
                 .path=file_identifier,
                 .offset=record.extent_location.ne()*2048ull,
                 .size=record.data_length.ne(),
+                .time=recording_date_to_unix_time(record.recording_date),
                 .is_dir=!!(record.file_flags&0x2)
             };
         }
-        if(auto it=tree.find(path.value());it==tree.end()){
-            tree[path.value()]=std::vector<entry_t>();
-        }
-        auto& dir_entries = tree[path.value()];
+
+        auto& dir_entries = tree[path];
         if(auto it = std::find_if(dir_entries.begin(), dir_entries.end(), [&](const entry_t& entry) {
             return entry.path == file_identifier;
         });it  != dir_entries.end()){
@@ -257,6 +278,7 @@ void iso_fs::read_dir(RootDirectoryRecord& dir_record, std::optional<std::string
 
 #endif
         if(record.file_flags&0x2){
+            tree[file_identifier]=std::vector<entry_t>();
             read_dir<VOLUME_TYPE>(record, file_identifier);
         }
         offset+=length;

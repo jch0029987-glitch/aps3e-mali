@@ -1383,6 +1383,12 @@ error_code sys_fs_opendir(ppu_thread& ppu, vm::cptr<char> path, vm::ptr<u32> fd)
 
 	if (dir)
 	{
+        if(Emu.GetIsoFs()&&local_path[0]==':'){
+            data.emplace_back().name = '.';
+            data.back().is_directory = true;
+            data.emplace_back().name = "..";
+            data.back().is_directory = true;
+        }
 		// Add real directories
 		while (dir.read(data.emplace_back()))
 		{
@@ -1405,14 +1411,6 @@ error_code sys_fs_opendir(ppu_thread& ppu, vm::cptr<char> path, vm::ptr<u32> fd)
 
 		data.resize(data.size() - 1);
 	}
-    // TODO:这个else语句会被执行么？
-	else
-	{
-		data.emplace_back().name += '.';
-		data.back().is_directory = true;
-		data.emplace_back().name = "..";
-		data.back().is_directory = true;
-	}
 
 	// Add mount points (TODO)
 	for (auto&& ex : ext)
@@ -1421,9 +1419,6 @@ error_code sys_fs_opendir(ppu_thread& ppu, vm::cptr<char> path, vm::ptr<u32> fd)
 		data.back().is_directory = true;
 	}
 
-    if(Emu.GetIsoFs()&&local_path[0]==':')
-        std::stable_sort(data.begin(), data.end(), FN(x.name < y.name));
-    else
 	// Sort files, keeping . and ..
 	std::stable_sort(data.begin() + 2, data.end(), FN(x.name < y.name));
 

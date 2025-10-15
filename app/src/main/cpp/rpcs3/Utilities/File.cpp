@@ -1817,10 +1817,9 @@ fs::file::file(iso_fs& _iso_fs, const std::string& entry_path)
 #else
             info.size=bind_entry.size;
 #endif
-            //FIXME
-            info.atime=0;
-            info.mtime=0;
-            info.ctime=0;
+            info.atime=bind_entry.time;
+            info.mtime=bind_entry.time;
+            info.ctime=bind_entry.time;
             return info;
         }
 

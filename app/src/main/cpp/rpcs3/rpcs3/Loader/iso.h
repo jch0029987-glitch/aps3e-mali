@@ -1,9 +1,4 @@
-//
-// Created by aenu on 2025/5/17.
-//
-
-#ifndef APS3E_ISO_H
-#define APS3E_ISO_H
+#pragma once
 
 #include <stdint.h>
 #include <endian.h>
@@ -16,6 +11,7 @@
 #include <vector>
 #include <cassert>
 #include <numeric>
+#include <time.h>
 
 #include "util/logs.hpp"
 
@@ -96,6 +92,7 @@ struct VolumeDescriptor {
 static_assert(sizeof(VolumeDescriptor)==2048, "sizeof(VolumeDescriptor) != 2048");
 
 struct iso_fs{
+    static constexpr std::string_view ROOT=":";
     static std::unique_ptr<iso_fs> from_fd(int fd);
 
     iso_fs()=default;
@@ -131,6 +128,7 @@ struct iso_fs{
         std::string path;
         uint64_t offset;
         uint64_t size;
+        time_t time;
         bool  is_dir;
     };
 #endif
@@ -174,7 +172,7 @@ private:
     void parse(VolumeDescriptor& vd);
 
     template<const int VOLUME_TYPE>
-    void read_dir(RootDirectoryRecord& dir_record,std::optional<std::string> path);
+    void read_dir(RootDirectoryRecord& dir_record,std::string path);
 
     int fd;
     std::unordered_map <std::string, entry_t> files;
@@ -183,4 +181,3 @@ private:
 
 #pragma pack(pop)
 
-#endif //APS3E_ISO_H
