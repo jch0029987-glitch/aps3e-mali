@@ -39,8 +39,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import static aenu.aps3e.MainActivity.getFileNameFromUri;
-
 import aenu.hardware.ProcessorInfo;
 import kotlin.contracts.Returns;
 
@@ -137,7 +135,7 @@ public class QuickStartActivity extends AppCompatActivity {
             return;
         }
 
-        String file_name = getFileNameFromUri(uri);
+        String file_name = Utils.getFileNameFromUri(uri);
 
         switch (requestCode) {
             case MainActivity.REQUEST_INSTALL_FIRMWARE:
@@ -474,7 +472,7 @@ public class QuickStartActivity extends AppCompatActivity {
     }
 
     static String load_default_config_str(Context ctx){
-        return new String(Application.load_assets_file(
+        return new String(Utils.load_assets_file(
                 ctx,"config/config.yml"));
     }
 
@@ -504,7 +502,7 @@ public class QuickStartActivity extends AppCompatActivity {
             for (ZipEntry ze = zis.getNextEntry(); ze != null; ze = zis.getNextEntry()) {
                 if (ze.getName().endsWith(".so")) {
                     //String lib_path=new File(Application.get_custom_driver_dir() , ze.getName()).getAbsolutePath();
-                    String lib_name=MainActivity.getFileNameFromUri(uri);
+                    String lib_name=Utils.getFileNameFromUri(uri);
                     lib_name=lib_name.substring(0,lib_name.lastIndexOf('.'));
                     lib_name=lib_name+".so";
                     String lib_path=new File(Application.get_custom_driver_dir() , lib_name).getAbsolutePath();
@@ -541,7 +539,7 @@ public class QuickStartActivity extends AppCompatActivity {
         try {
             ParcelFileDescriptor pfd = getContentResolver().openFileDescriptor(uri, "r");
             FileInputStream lib_is = new FileInputStream(pfd.getFileDescriptor());
-            String lib_path=new File(Application.get_custom_driver_dir() , MainActivity.getFileNameFromUri(uri)).getAbsolutePath();
+            String lib_path=new File(Application.get_custom_driver_dir() , Utils.getFileNameFromUri(uri)).getAbsolutePath();
             FileOutputStream lib_os = new FileOutputStream(lib_path);
 
             byte[] buffer = new byte[16384];
@@ -565,7 +563,7 @@ public class QuickStartActivity extends AppCompatActivity {
         try {
             ParcelFileDescriptor pfd = getContentResolver().openFileDescriptor(uri, "r");
             FileInputStream font_is = new FileInputStream(pfd.getFileDescriptor());
-            String font_path=new File(Application.get_custom_font_dir(), MainActivity.getFileNameFromUri(uri)).getAbsolutePath();
+            String font_path=new File(Application.get_custom_font_dir(), Utils.getFileNameFromUri(uri)).getAbsolutePath();
             FileOutputStream font_os = new FileOutputStream(font_path);
 
             byte[] buffer = new byte[16384];

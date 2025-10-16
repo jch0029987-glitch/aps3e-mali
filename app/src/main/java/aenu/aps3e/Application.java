@@ -17,63 +17,6 @@ import aenu.hardware.ProcessorInfo;
 
 public class Application extends android.app.Application
 {
-	
-	public static String getCurrentProcessName(Context context) {
-        int pid = android.os.Process.myPid();
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
-        if (runningApps!= null) {
-            for (ActivityManager.RunningAppProcessInfo procInfo : runningApps) {
-                if (procInfo.pid == pid) {
-                    return procInfo.processName;
-                }
-            }
-        }
-        return null;
-    }
-	
-	public static void extractAssetsDir(Context context, String assertDir, File outputDir) {
-        AssetManager assetManager = context.getAssets();
-        try {
-            if (!outputDir.exists()) {
-                outputDir.mkdirs();
-            }
-
-            String[] filesToExtract = assetManager.list(assertDir);
-            if (filesToExtract!= null) {
-                for (String file : filesToExtract) {
-					File outputFile = new File(outputDir, file);
-					if(outputFile.exists())continue;
-					
-                    InputStream in = assetManager.open(assertDir + "/" + file);
-                    FileOutputStream out = new FileOutputStream(outputFile);
-                    byte[] buffer = new byte[16384];
-                    int read;
-                    while ((read = in.read(buffer))!= -1) {
-                        out.write(buffer, 0, read);
-                    }
-                    in.close();
-                    out.close();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public  static byte[] load_assets_file(Context ctx,String asset_file_path) {
-        try {
-            InputStream in = ctx.getAssets().open(asset_file_path);
-            int size = in.available();
-            byte[] buffer = new byte[size];
-            in.read(buffer);
-            in.close();
-            return buffer;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     public  static File get_app_data_dir() {
         return ctx.getExternalFilesDir("aps3e");
@@ -120,25 +63,9 @@ public class Application extends android.app.Application
         return new File(Application.get_app_data_dir(),"config/default_config.yml");
     }
 
-    static void copy_file(File src,File dst) {
-        try {
-            FileInputStream in=new FileInputStream(src);
-            FileOutputStream out=new FileOutputStream(dst);
-            byte buf[]=new byte[16384];
-            int n;
-            while((n=in.read(buf))!=-1)
-                out.write(buf,0,n);
-            in.close();
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     static boolean device_support_vulkan() {
         return gpu_device_name_vk!=null;
     }
-
     static boolean should_delay_load() {
         if(gpu_device_name_vk==null)
             throw new RuntimeException("gpu_device_name_vk==null");
@@ -164,9 +91,6 @@ public class Application extends android.app.Application
         get_app_log_dir().mkdirs();
         //get_internal_data_dir().mkdirs();
         get_custom_driver_dir().mkdirs();
-
-		if(getPackageName().equals(getCurrentProcessName(this)));
-			//Logger.start_record(this);
 
 		Thread.setDefaultUncaughtExceptionHandler(exception_handler);
     }

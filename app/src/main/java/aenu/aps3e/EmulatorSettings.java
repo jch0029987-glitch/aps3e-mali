@@ -54,8 +54,6 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import aenu.preference.ColorPickerDialog;
-
 public class EmulatorSettings extends AppCompatActivity {
 
     static final String EXTRA_CONFIG_PATH="config_path";
@@ -192,7 +190,7 @@ public class EmulatorSettings extends AppCompatActivity {
                                         original_config.close_config();
                                         original_config=null;
                                     }
-                                    Application.copy_file(Application.get_default_config_file(),_config_file);
+                                    Utils.copy_file(Application.get_default_config_file(),_config_file);
                                     requireActivity().finish();
                                 }
                             })
@@ -611,42 +609,12 @@ public class EmulatorSettings extends AppCompatActivity {
                 //return;
             }
 
-            //Android 15+
-            if(Build.VERSION.SDK_INT>=35){
-                /*ListPreference pref=findPreference("Miscellaneous|Font File Selection");
-                String entry_values[]=getResources().getStringArray(R.array.miscellaneous_font_file_selection_values);
-                String entries[]=getResources().getStringArray(R.array.miscellaneous_font_file_selection_entries);
-
-                int remove_idx=-1;
-                for(int i=0;i<entry_values.length;i++){
-                    if(entry_values[i].equals("From OS")){
-                        remove_idx=i;
-                        break;
-                    }
-                }
-
-                String[] new_entry_values=new String[entry_values.length-1];
-                String[] new_entries=new String[entry_values.length-1];
-                System.arraycopy(entry_values,0,new_entry_values,0,remove_idx);
-                System.arraycopy(entry_values,remove_idx+1,new_entry_values,remove_idx,entry_values.length-remove_idx-1);
-                System.arraycopy(entries,0,new_entries,0,remove_idx);
-                System.arraycopy(entries,remove_idx+1,new_entries,remove_idx,entry_values.length-remove_idx-1);
-
-                pref.setEntries(new_entries);
-                pref.setEntryValues(new_entry_values);*/
-            }
-
         }
 
 
     @Override
     public void onDisplayPreferenceDialog( @NonNull Preference pref) {
-        if (pref instanceof ColorPickerDialog) {
-            final DialogFragment f = ColorPickerDialog.ColorPickerPreferenceFragmentCompat.newInstance(pref.getKey());
-            f.setTargetFragment(this, 0);
-            f.show(getParentFragmentManager(), "DIALOG_FRAGMENT_TAG");
-            return;
-        }
+
         if (pref instanceof SeekBarPreference) {
             final DialogFragment f = SeekBarPreference.SeekBarPreferenceFragmentCompat.newInstance(pref.getKey());
             f.setTargetFragment(this, 0);
@@ -1043,7 +1011,7 @@ public class EmulatorSettings extends AppCompatActivity {
             for (ZipEntry ze = zis.getNextEntry(); ze != null; ze = zis.getNextEntry()) {
                 if (ze.getName().endsWith(".so")) {
                     //String lib_path=new File(Application.get_custom_driver_dir() , ze.getName()).getAbsolutePath();
-                    String lib_name=MainActivity.getFileNameFromUri(uri);
+                    String lib_name=Utils.getFileNameFromUri(uri);
                     lib_name=lib_name.substring(0,lib_name.lastIndexOf('.'));
                     lib_name=lib_name+".so";
                     String lib_path=new File(Application.get_custom_driver_dir() , lib_name).getAbsolutePath();
@@ -1078,7 +1046,7 @@ public class EmulatorSettings extends AppCompatActivity {
         try {
             ParcelFileDescriptor pfd = getContentResolver().openFileDescriptor(uri, "r");
             FileInputStream lib_is = new FileInputStream(pfd.getFileDescriptor());
-            String lib_path=new File(Application.get_custom_driver_dir() , MainActivity.getFileNameFromUri(uri)).getAbsolutePath();
+            String lib_path=new File(Application.get_custom_driver_dir() , Utils.getFileNameFromUri(uri)).getAbsolutePath();
             FileOutputStream lib_os = new FileOutputStream(lib_path);
 
             byte[] buffer = new byte[16384];
@@ -1100,7 +1068,7 @@ public class EmulatorSettings extends AppCompatActivity {
         try {
             ParcelFileDescriptor pfd = getContentResolver().openFileDescriptor(uri, "r");
             FileInputStream font_is = new FileInputStream(pfd.getFileDescriptor());
-            String font_path=new File(Application.get_custom_font_dir(), MainActivity.getFileNameFromUri(uri)).getAbsolutePath();
+            String font_path=new File(Application.get_custom_font_dir(), Utils.getFileNameFromUri(uri)).getAbsolutePath();
             FileOutputStream font_os = new FileOutputStream(font_path);
 
             byte[] buffer = new byte[16384];
@@ -1125,7 +1093,7 @@ public class EmulatorSettings extends AppCompatActivity {
         if (resultCode != RESULT_OK || data == null) return;
 
         Uri uri=data.getData();
-        String file_name = MainActivity.getFileNameFromUri(uri);
+        String file_name = Utils.getFileNameFromUri(uri);
 
         switch (requestCode){
             case REQUEST_CODE_SELECT_CUSTOM_DRIVER:

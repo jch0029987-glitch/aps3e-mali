@@ -415,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
 		}
 
 		if (uri != null) {
-			String fileName = getFileNameFromUri(uri);
+			String fileName = Utils.getFileNameFromUri(uri);
 			int pfd;
             try {
                 ParcelFileDescriptor pfd_= getContentResolver().openFileDescriptor(uri, "r");
@@ -493,25 +493,6 @@ public class MainActivity extends AppCompatActivity {
 			}
 		}
 	}
-
-	 static String getFileNameFromUri(Uri uri) {
-		String fileName = null;
-		Cursor cursor = Application.ctx.getContentResolver().query(
-				uri,
-				new String[]{DocumentsContract.Document.COLUMN_DISPLAY_NAME},
-				null, null, null
-		);
-		if (cursor != null) {
-			if (cursor.moveToFirst()) {
-				fileName = cursor.getString(cursor.getColumnIndexOrThrow(
-						DocumentsContract.Document.COLUMN_DISPLAY_NAME
-				));
-			}
-			cursor.close();
-		}
-		return fileName;
-	}
-
 
 	@Override
     public boolean onKeyDown(int keyCode,KeyEvent event){
@@ -719,7 +700,7 @@ public class MainActivity extends AppCompatActivity {
 		mk_dirs();
 
 		File icons_ui_output_dir=new File(Application.get_app_data_dir().getParent(),"aps3e/config/Icons/ui");
-		Application.extractAssetsDir(this,"Icons/ui",icons_ui_output_dir);
+		Utils.extractAssetsDir(this,"Icons/ui",icons_ui_output_dir);
 
 		File xxxx_txt=new File(Application.get_app_data_dir(),"xxxx.txt");
 		if(!xxxx_txt.exists()) {
@@ -747,7 +728,7 @@ public class MainActivity extends AppCompatActivity {
 		File config_yml_output_dir=new File(Application.get_app_data_dir().getParent(),"aps3e/config");
 		if(!new File(config_yml_output_dir,"config.yml").exists()) {
 			//Application.extractAssetsDir(this, "config", config_yml_output_dir);
-			Application.copy_file(Application.get_default_config_file(),new File(config_yml_output_dir,"config.yml"));
+			Utils.copy_file(Application.get_default_config_file(),new File(config_yml_output_dir,"config.yml"));
 		}
 		
 		/*File nomedia=new File(Environment.getExternalStorageDirectory(),"aps3e/.nomedia");

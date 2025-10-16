@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: WTFPL
+// SPDX-License-Identifier: Apache-2.0
 package aenu.aps3e;
 
 import static android.os.Build.VERSION.SDK_INT;
@@ -115,7 +115,7 @@ public class InnerDocumentsProvider extends android.provider.DocumentsProvider{
         }
 
         // COLUMN_TITLE is the root title (e.g. what will be displayed to identify your provider).
-        row.add(Root.COLUMN_TITLE, getContext().getString(R.string.app_name));
+        row.add(Root.COLUMN_TITLE, getContext().getString(R.string.app_name)+" Inner");
 
         // This document id must be unique within this provider and consistent across time.  The
         // system picker UI may save it and refer to it later.

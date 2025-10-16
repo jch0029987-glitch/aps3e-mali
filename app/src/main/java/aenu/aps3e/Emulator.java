@@ -36,11 +36,11 @@ public class Emulator extends aenu.emulator.Emulator
 		static JSONObject to_json(MetaInfo  info) throws JSONException {
 			JSONObject jo=new JSONObject();
 			if(info.eboot_path!=null)
-			jo.put("eboot_path",info.eboot_path);
+				jo.put("eboot_path",info.eboot_path);
 			if(info.iso_uri!=null)
-			jo.put("iso_uri",info.iso_uri);
+				jo.put("iso_uri",info.iso_uri);
 			if(info.icon!=null)
-			jo.put("icon",Base64.getEncoder().encodeToString(info.icon));
+				jo.put("icon",Base64.getEncoder().encodeToString(info.icon));
 			jo.put("name",info.name);
 			jo.put("serial",info.serial);
 			jo.put("category",info.category);

@@ -21,23 +21,13 @@ import org.vita3k.emulator.overlay.*;
 public class VirtualPadEdit extends Activity
 {
 
-	public static void enable_fullscreen(Window w){
-		WindowCompat.setDecorFitsSystemWindows(w,false);
-		WindowInsetsControllerCompat wic=WindowCompat.getInsetsController(w,w.getDecorView());
-		wic.hide(WindowInsetsCompat.Type.systemBars());
-		wic.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-		WindowManager.LayoutParams lp=w.getAttributes();
-		lp.layoutInDisplayCutoutMode=WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-		w.setAttributes(lp);
-	}
-
 	InputOverlay iv=null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		// TODO: Implement this method
 		super.onCreate(savedInstanceState);
-		enable_fullscreen(getWindow());
+		Utils.enable_fullscreen(getWindow());
 
 		setContentView(iv=new InputOverlay(this,null));
 		iv.setIsInEditMode(true);

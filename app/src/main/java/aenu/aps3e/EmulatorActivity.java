@@ -132,7 +132,7 @@ public class EmulatorActivity extends Activity implements View.OnGenericMotionLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-		VirtualPadEdit.enable_fullscreen(getWindow());
+		Utils.enable_fullscreen(getWindow());
 
 		if(!Application.should_delay_load()){
 			on_create();

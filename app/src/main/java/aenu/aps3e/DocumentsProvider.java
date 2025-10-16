@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: WTFPL
+// SPDX-License-Identifier: Apache-2.0
 package aenu.aps3e;
 
 import static android.os.Build.VERSION.SDK_INT;
