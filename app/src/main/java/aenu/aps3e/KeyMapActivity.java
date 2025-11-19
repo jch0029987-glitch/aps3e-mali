@@ -72,18 +72,18 @@ public class KeyMapActivity extends AppCompatActivity {
     }
 	
 	void refresh_view(){
-		((SVListView)findViewById(R.id.keymap_list)).setAdapter(new KeyListAdapter(this,KeyMapConfig.KEY_NAMEIDS,get_all_key_mapper_values()));
+		((SVListView)findViewById(R.id.keymap_list)).setAdapter(new KeyListAdapter(this,KeyMapConfig.KEY_NAMEIDS,KeyMapConfig.KEY_IDS,get_all_key_mapper_values()));
 	}
 	
 	void update_config(){
 		final SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(KeyMapActivity.this);
 		SharedPreferences.Editor sPrefsEditor = sPrefs.edit();
 
-		for(int i=0;i<KeyMapConfig.KEY_NAMEIDS.length;i++){
-			String key_n=Integer.toString(KeyMapConfig.KEY_NAMEIDS[i]);
+		for(int i=0;i<KeyMapConfig.KEY_IDS.length;i++){
+			String key=Integer.toString(KeyMapConfig.KEY_IDS[i]);
 			int default_v=KeyMapConfig.DEFAULT_KEYMAPPERS[i];
-			int key_v=sPrefs.getInt(key_n,default_v);
-			sPrefsEditor.putInt(key_n,key_v);
+			int key_v=sPrefs.getInt(key,default_v);
+			sPrefsEditor.putInt(key,key_v);
 		}
 		
 		sPrefsEditor.commit();
@@ -92,9 +92,9 @@ public class KeyMapActivity extends AppCompatActivity {
 	int[] get_all_key_mapper_values(){
 		final SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(KeyMapActivity.this);
 		
-		int[] key_values=new int[KeyMapConfig.KEY_NAMEIDS.length];
-		for(int i=0;i<KeyMapConfig.KEY_NAMEIDS.length;i++){
-			String key_n=Integer.toString(KeyMapConfig.KEY_NAMEIDS[i]);
+		int[] key_values=new int[KeyMapConfig.KEY_IDS.length];
+		for(int i=0;i<KeyMapConfig.KEY_IDS.length;i++){
+			String key_n=Integer.toString(KeyMapConfig.KEY_IDS[i]);
 			key_values[i]=sPrefs.getInt(key_n,0);
 		}
 		return key_values;
@@ -142,8 +142,8 @@ public class KeyMapActivity extends AppCompatActivity {
 		@Override
 		public void onClick(View v)
 		{
-			for(int i=0;i<KeyMapConfig.KEY_NAMEIDS.length;i++){
-				String key_n=Integer.toString(KeyMapConfig.KEY_NAMEIDS[i]);
+			for(int i=0;i<KeyMapConfig.KEY_IDS.length;i++){
+				String key_n=Integer.toString(KeyMapConfig.KEY_IDS[i]);
 				int default_v=KeyMapConfig.DEFAULT_KEYMAPPERS[i];
 				sp.edit().putInt(key_n,default_v).commit();
 			}
@@ -158,17 +158,19 @@ public class KeyMapActivity extends AppCompatActivity {
 	private static class KeyListAdapter extends BaseAdapter {
 
         private int[] keyNameIdList_;
+		private int[] keyIdList_;
 		private int[] valueList_;
         private Context context_; 
 
-        private KeyListAdapter(Context context,int[] keyList,int[] valueList){
+        private KeyListAdapter(Context context,int[] keyNameList,int[] keyList,int[] valueList){
             context_=context;
-			this.keyNameIdList_=keyList;
+			this.keyNameIdList_=keyNameList;
+			this.keyIdList_=keyList;
 			this.valueList_=valueList;
 		}
 
         public String getKey(int pos){
-            return Integer.toString(keyNameIdList_[pos]);
+            return Integer.toString(keyIdList_[pos]);
         }
 
 		public String getKeyName(int pos){

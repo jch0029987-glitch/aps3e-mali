@@ -39,6 +39,32 @@ public class KeyMapConfig {
 		R.string.ps,
         };
 
+	public static final int[] KEY_IDS = new int[]{
+			//left, up, right, down,
+			0x60000000,
+			0x60000001,
+			0x60000002,
+			0x60000003,
+			//square, cross, circle, triangle,
+			0x60000004,
+			0x60000005,
+			0x60000006,
+			0x60000007,
+
+			//l1, l2, l3, r1, r2, r3,
+			0x60000008,
+			0x60000009,
+			0x6000000A,
+			0x6000000B,
+			0x6000000C,
+			0x6000000D,
+
+			//start, select, ps
+			0x6000000E,
+			0x6000000F,
+			0x60000010,
+	};
+
     public static final int[] KEY_VALUES = new int[]{
 		InputOverlay.ControlId.l,
 		InputOverlay.ControlId.u,

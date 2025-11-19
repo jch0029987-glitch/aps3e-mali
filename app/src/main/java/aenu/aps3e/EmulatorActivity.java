@@ -437,9 +437,9 @@ public class EmulatorActivity extends Activity implements View.OnGenericMotionLi
 	void load_key_map_and_vibrator() {
         final SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         keysMap.clear();
-        for (int i = 0; i < KeyMapConfig.KEY_NAMEIDS.length; i++) {
-            String keyName = Integer.toString(KeyMapConfig.KEY_NAMEIDS[i]);
-            int keyCode = sPrefs.getInt(keyName, KeyMapConfig.DEFAULT_KEYMAPPERS[i]);
+        for (int i = 0; i < KeyMapConfig.KEY_IDS.length; i++) {
+            String key = Integer.toString(KeyMapConfig.KEY_IDS[i]);
+            int keyCode = sPrefs.getInt(key, KeyMapConfig.DEFAULT_KEYMAPPERS[i]);
             keysMap.put(keyCode, KeyMapConfig.KEY_VALUES[i]);
         }
 		if(sPrefs.getBoolean("enable_vibrator",false)){
