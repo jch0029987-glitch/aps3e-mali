@@ -190,6 +190,10 @@ public class AboutActivity extends AppCompatActivity {
                 + "1.32(2025-11-06)\n"
                 + " *修复多个bug\n"
                 + " *界面更新\n"
+                + "1.33(2025-12-01)\n"
+                + " *修复每次更新时按键错位的问题\n"
+                + " *添加显示奖杯信息选项\n"
+                + " *添加创建/删除PPU缓存，删除SPU缓存选项\n"
                 + " \n";
 
         return log;

@@ -661,7 +661,7 @@ public class MainActivity extends AppCompatActivity {
 			if((trophy_info=Emulator.GameTrophyManager.get_or_init().find(meta_info.name))!=null)
 				show_trophy_dialog(trophy_info);
 			else
-				Toast.makeText(this, "No Found Trophy Info", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, R.string.no_found_trophy_info, Toast.LENGTH_SHORT).show();
 		}
 		else if(item_id==R.id.create_ppu_cache){
 			(progress_task=new ProgressTask(MainActivity.this)
