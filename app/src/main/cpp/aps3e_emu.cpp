@@ -777,11 +777,46 @@ namespace ae{
         return true;
     }
 
+    class NotifyMsg:public MsgDialogBase{
+        public:
+        NotifyMsg()=default;
+        ~NotifyMsg(){}
+
+        void Create(const std::string& msg, const std::string& title) override
+        {
+        }
+        void Close(bool success) override
+        {
+        }
+        void SetMsg(const std::string& msg) override
+        {
+        }
+        void ProgressBarSetMsg(u32 progressBarIndex, const std::string& msg) override
+        {
+        }
+        void ProgressBarReset(u32 progressBarIndex) override
+        {
+        }
+        void ProgressBarInc(u32 progressBarIndex, u32 delta) override
+        {
+        }
+        void ProgressBarSetValue(u32 progressBarIndex, u32 value) override
+        {
+        }
+        void ProgressBarSetLimit(u32 index, u32 limit) override
+        {
+        }
+    };
     bool precompile_ppu_cache(const std::string& path,std::optional<int> fd) {
 
         //setenv("APS3E_ENABLE_LOG","true",1);
         ae::init();
+        EmuCallbacks cbs=Emu.GetCallbacks();
 
+        cbs.get_msg_dialog=[]()->std::shared_ptr<class MsgDialogBase>{
+            return std::make_shared<NotifyMsg>();
+        };
+        Emu.SetCallbacks(std::move(cbs));
         return Emu.PrecompilePPUCache(path, fd);
     }
 

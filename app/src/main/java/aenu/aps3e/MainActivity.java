@@ -180,6 +180,11 @@ public class MainActivity extends AppCompatActivity {
 				return;
 			}
 
+			if(PPUCacheBuildService.isBuilding(meta_info)){
+				Toast.makeText(MainActivity.this,R.string.creating_ppu_cache,Toast.LENGTH_LONG).show();
+				return;
+			}
+
 			/*if(meta_info.resolution==0) {
 				refresh_game_list();
 				return;
@@ -664,35 +669,13 @@ public class MainActivity extends AppCompatActivity {
 				Toast.makeText(this, R.string.no_found_trophy_info, Toast.LENGTH_SHORT).show();
 		}
 		else if(item_id==R.id.create_ppu_cache){
-			(progress_task=new ProgressTask(MainActivity.this)
-					.set_done_task(new ProgressTask.UI_Task(){
-						@Override
-						public void run() {
-						}
-					}))
-					.call(new ProgressTask.Task() {
-						@Override
-						public void run(ProgressTask task) {
-							Emulator.MetaInfo meta_info=adapter.getMetaInfo(position);
-							if(meta_info.iso_uri!=null){
-								int pfd;
-								try {
-									ParcelFileDescriptor pfd_= getContentResolver().openFileDescriptor(Uri.parse(meta_info.iso_uri), "r");
-									pfd=pfd_.detachFd();
-									pfd_.close();
-								} catch (Exception e) {
-									Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-									return;
-								}
-								Emulator.get.precompile_ppu_cache(pfd);
-							}
-							else{
-								Emulator.get.precompile_ppu_cache(meta_info.eboot_path);
-							}
-							task.task_handler.sendEmptyMessage(ProgressTask.TASK_DONE);
-							progress_task=null;
-						}
-					});
+			Emulator.MetaInfo meta_info=adapter.getMetaInfo(position);
+			Intent intent=new Intent(this,PPUCacheBuildService.class);
+			intent.putExtra(PPUCacheBuildService.EXTRA_META_INFO, meta_info);
+
+			if(!PPUCacheBuildService.isBuilding(meta_info)){
+				startService(intent);
+			}
 		}
 		else if(item_id==R.id.delete_ppu_cache){
 			show_verify_dialog(R.string.delete_ppu_cache, new DialogInterface.OnClickListener() {

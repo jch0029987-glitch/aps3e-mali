@@ -3,6 +3,7 @@
     <!--string name="app_name">aPS3e Premium</string-->
 	<string name="app_name">aPS3e</string>
 
+	<string name="creating_ppu_cache">Creating PPU cache</string>
 	<string name="show_trophy_info">Show Trophy Info</string>
 	<string name="create_ppu_cache">Create PPU Cache</string>
 	<string name="delete_ppu_cache">Delete PPU Cache</string>

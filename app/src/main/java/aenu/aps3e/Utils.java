@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -153,5 +154,13 @@ public class Utils {
         paint.setColorFilter(new ColorMatrixColorFilter(cm));
         canvas.drawBitmap(src,0,0,paint);
         return bmp;
+    }
+
+    static int detach_open_uri(Context ctx,Uri uri){
+        try {
+            return ctx.getContentResolver().openFileDescriptor(uri,"r").detachFd();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
