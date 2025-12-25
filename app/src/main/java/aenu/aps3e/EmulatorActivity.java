@@ -227,7 +227,8 @@ public class EmulatorActivity extends Activity implements View.OnGenericMotionLi
 					}
 
 					listAdapter.clear();
-					for (int i = 0; i < searchResults.length; i++) {
+					final int RESULT_COUNT_MAX = 200;
+					for (int i = 0,n=Math.min(searchResults.length, RESULT_COUNT_MAX); i < n; i++) {
 						listAdapter.add(String.format("0x%08X", searchResults[i].addr));
 					}
 					

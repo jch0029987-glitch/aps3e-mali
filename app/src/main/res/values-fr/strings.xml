@@ -4,6 +4,31 @@
 	<!--无法转义',&apos;会报错 -->
 	<!-- +++++++++++++++++++++++++++ -->
 
+	<string name="creating_ppu_cache">Création du cache PPU</string>
+<string name="please_enter_a_search_value">Veuillez saisir une valeur de recherche</string>
+<string name="search_value_cannot_be_greater_than">La valeur de recherche ne peut pas être supérieure à</string>
+<string name="search_results_0_matches">Résultats de recherche : 0 correspondance</string>
+<string name="please_select_the_address_to_write_to_first">Veuillez sélectionner l`adresse où écrire en premier</string>
+<string name="no_matching_memory_address_found">Aucune adresse mémoire correspondante trouvée</string>
+<string name="search_results_n_matches">Résultats de recherche : %d correspondances</string>
+<string name="please_enter_a_valid_number">Veuillez saisir un nombre valide (hexadécimal)</string>
+<string name="search_failed">Échec de la recherche : </string>
+<string name="address_selected">Adresse sélectionnée : </string>
+<string name="please_select_the_memory_address_to_write_to_first">Veuillez sélectionner l`adresse mémoire où écrire en premier</string>
+<string name="please_enter_the_value_to_write">Veuillez saisir la valeur à écrire</string>
+<string name="the_value_to_be_written_cannot_be_greater_than">La valeur à écrire ne peut pas être supérieure à</string>
+<string name="write_successful">Écriture réussie</string>
+<string name="write_failed">Échec de l`écriture</string>
+<string name="memory_search">Recherche mémoire</string>
+<string name="search_type_hint">Type de recherche :</string>
+<string name="search_value_hint">Valeur de recherche :</string>
+<string name="please_enter_the_value_to_search">Veuillez saisir la valeur à rechercher</string>
+<string name="start_search">Démarrer la recherche</string>
+<string name="search_results_list_hint">Liste des résultats de recherche</string>
+<string name="memory_write">Écriture mémoire</string>
+<string name="enter_the_value_to_write">Saisir la valeur à écrire</string>
+
+
 	<string name="show_trophy_info">Afficher les informations du trophée</string>
 <string name="create_ppu_cache">Créer le cache PPU</string>
 <string name="delete_ppu_cache">Supprimer le cache PPU</string>

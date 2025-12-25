@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+	<string name="creating_ppu_cache">Membuat cache PPU</string>
+<string name="please_enter_a_search_value">Silakan masukkan nilai pencarian</string>
+<string name="search_value_cannot_be_greater_than">Nilai pencarian tidak boleh lebih besar dari</string>
+<string name="search_results_0_matches">Hasil pencarian: 0 kecocokan</string>
+<string name="please_select_the_address_to_write_to_first">Silakan pilih alamat untuk ditulis terlebih dahulu</string>
+<string name="no_matching_memory_address_found">Tidak ditemukan alamat memori yang cocok</string>
+<string name="search_results_n_matches">Hasil pencarian: %d kecocokan</string>
+<string name="please_enter_a_valid_number">Silakan masukkan angka yang valid (heksadesimal)</string>
+<string name="search_failed">Pencarian gagal: </string>
+<string name="address_selected">Alamat dipilih: </string>
+<string name="please_select_the_memory_address_to_write_to_first">Silakan pilih alamat memori untuk ditulis terlebih dahulu</string>
+<string name="please_enter_the_value_to_write">Silakan masukkan nilai untuk ditulis</string>
+<string name="the_value_to_be_written_cannot_be_greater_than">Nilai yang akan ditulis tidak boleh lebih besar dari</string>
+<string name="write_successful">Penulisan berhasil</string>
+<string name="write_failed">Penulisan gagal</string>
+<string name="memory_search">Pencarian Memori</string>
+<string name="search_type_hint">Jenis Pencarian:</string>
+<string name="search_value_hint">Nilai Pencarian:</string>
+<string name="please_enter_the_value_to_search">Silakan masukkan nilai untuk dicari</string>
+<string name="start_search">Mulai Pencarian</string>
+<string name="search_results_list_hint">Daftar hasil pencarian</string>
+<string name="memory_write">Penulisan Memori</string>
+<string name="enter_the_value_to_write">Masukkan nilai untuk ditulis</string>
+
 	<string name="show_trophy_info">Tampilkan Info Trofi</string>
 <string name="create_ppu_cache">Buat Cache PPU</string>
 <string name="delete_ppu_cache">Hapus Cache PPU</string>

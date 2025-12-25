@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+	<string name="creating_ppu_cache">PPU कैशे बनाया जा रहा है</string>
+<string name="please_enter_a_search_value">कृपया खोज मान दर्ज करें</string>
+<string name="search_value_cannot_be_greater_than">खोज मान इससे अधिक नहीं हो सकता</string>
+<string name="search_results_0_matches">खोज परिणाम: 0 मिलान</string>
+<string name="please_select_the_address_to_write_to_first">कृपया पहले लिखने के लिए पता चुनें</string>
+<string name="no_matching_memory_address_found">कोई मिलान स्मृति पता नहीं मिला</string>
+<string name="search_results_n_matches">खोज परिणाम: %d मिलान</string>
+<string name="please_enter_a_valid_number">कृपया एक मान्य संख्या दर्ज करें (हेक्साडेसिमल)</string>
+<string name="search_failed">खोज विफल: </string>
+<string name="address_selected">चयनित पता: </string>
+<string name="please_select_the_memory_address_to_write_to_first">कृपया पहले लिखने के लिए मेमोरी पता चुनें</string>
+<string name="please_enter_the_value_to_write">कृपया लिखने के लिए मान दर्ज करें</string>
+<string name="the_value_to_be_written_cannot_be_greater_than">लिखा जाने वाला मान इससे अधिक नहीं हो सकता</string>
+<string name="write_successful">लेखन सफल</string>
+<string name="write_failed">लेखन विफल</string>
+<string name="memory_search">मेमोरी खोज</string>
+<string name="search_type_hint">खोज प्रकार:</string>
+<string name="search_value_hint">खोज मान:</string>
+<string name="please_enter_the_value_to_search">कृपया खोज के लिए मान दर्ज करें</string>
+<string name="start_search">खोज शुरू करें</string>
+<string name="search_results_list_hint">खोज परिणाम सूची</string>
+<string name="memory_write">मेमोरी लेखन</string>
+<string name="enter_the_value_to_write">लिखने के लिए मान दर्ज करें</string>
+
 	<string name="show_trophy_info">ट्रॉफी जानकारी दिखाएं</string>
 <string name="create_ppu_cache">PPU कैश बनाएं</string>
 <string name="delete_ppu_cache">PPU कैश हटाएं</string>

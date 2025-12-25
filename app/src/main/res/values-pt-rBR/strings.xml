@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="creating_ppu_cache">Criando cache PPU</string>
+<string name="please_enter_a_search_value">Por favor, insira um valor de pesquisa</string>
+<string name="search_value_cannot_be_greater_than">O valor de pesquisa não pode ser maior que</string>
+<string name="search_results_0_matches">Resultados da pesquisa: 0 correspondências</string>
+<string name="please_select_the_address_to_write_to_first">Por favor, selecione o endereço para escrever primeiro</string>
+<string name="no_matching_memory_address_found">Nenhum endereço de memória correspondente encontrado</string>
+<string name="search_results_n_matches">Resultados da pesquisa: %d correspondências</string>
+<string name="please_enter_a_valid_number">Por favor, insira um número válido (hexadecimal)</string>
+<string name="search_failed">Pesquisa falhou: </string>
+<string name="address_selected">Endereço selecionado: </string>
+<string name="please_select_the_memory_address_to_write_to_first">Por favor, selecione o endereço de memória para escrever primeiro</string>
+<string name="please_enter_the_value_to_write">Por favor, insira o valor para escrever</string>
+<string name="the_value_to_be_written_cannot_be_greater_than">O valor a ser escrito não pode ser maior que</string>
+<string name="write_successful">Escrita bem-sucedida</string>
+<string name="write_failed">Escrita falhou</string>
+<string name="memory_search">Pesquisa de Memória</string>
+<string name="search_type_hint">Tipo de Pesquisa:</string>
+<string name="search_value_hint">Valor de Pesquisa:</string>
+<string name="please_enter_the_value_to_search">Por favor, insira o valor para pesquisar</string>
+<string name="start_search">Iniciar Pesquisa</string>
+<string name="search_results_list_hint">Lista de resultados da pesquisa</string>
+<string name="memory_write">Escrita de Memória</string>
+<string name="enter_the_value_to_write">Insira o valor para escrever</string>
+
     <string name="show_trophy_info">Mostrar Informações do Troféu</string>
 <string name="create_ppu_cache">Criar Cache PPU</string>
 <string name="delete_ppu_cache">Excluir Cache PPU</string>

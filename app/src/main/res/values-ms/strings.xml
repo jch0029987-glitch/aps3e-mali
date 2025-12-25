@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+	<string name="creating_ppu_cache">Mencipta cache PPU</string>
+<string name="please_enter_a_search_value">Sila masukkan nilai carian</string>
+<string name="search_value_cannot_be_greater_than">Nilai carian tidak boleh melebihi</string>
+<string name="search_results_0_matches">Hasil carian: 0 padanan</string>
+<string name="please_select_the_address_to_write_to_first">Sila pilih alamat untuk ditulis dahulu</string>
+<string name="no_matching_memory_address_found">Tiada alamat memori yang sepadan ditemui</string>
+<string name="search_results_n_matches">Hasil carian: %d padanan</string>
+<string name="please_enter_a_valid_number">Sila masukkan nombor yang sah (perenambelasan)</string>
+<string name="search_failed">Carian gagal: </string>
+<string name="address_selected">Alamat dipilih: </string>
+<string name="please_select_the_memory_address_to_write_to_first">Sila pilih alamat memori untuk ditulis dahulu</string>
+<string name="please_enter_the_value_to_write">Sila masukkan nilai untuk ditulis</string>
+<string name="the_value_to_be_written_cannot_be_greater_than">Nilai yang akan ditulis tidak boleh melebihi</string>
+<string name="write_successful">Penulisan berjaya</string>
+<string name="write_failed">Penulisan gagal</string>
+<string name="memory_search">Carian Memori</string>
+<string name="search_type_hint">Jenis Carian:</string>
+<string name="search_value_hint">Nilai Carian:</string>
+<string name="please_enter_the_value_to_search">Sila masukkan nilai untuk dicari</string>
+<string name="start_search">Mula Carian</string>
+<string name="search_results_list_hint">Senarai hasil carian</string>
+<string name="memory_write">Penulisan Memori</string>
+<string name="enter_the_value_to_write">Masukkan nilai untuk ditulis</string>
+
 <string name="show_trophy_info">Tunjuk Maklumat Trofi</string>
 <string name="create_ppu_cache">Cipta Cache PPU</string>
 <string name="delete_ppu_cache">Padam Cache PPU</string>

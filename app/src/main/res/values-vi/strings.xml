@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+	<string name="creating_ppu_cache">Đang tạo bộ nhớ đệm PPU</string>
+<string name="please_enter_a_search_value">Vui lòng nhập giá trị tìm kiếm</string>
+<string name="search_value_cannot_be_greater_than">Giá trị tìm kiếm không được lớn hơn</string>
+<string name="search_results_0_matches">Kết quả tìm kiếm: 0 kết quả trùng khớp</string>
+<string name="please_select_the_address_to_write_to_first">Vui lòng chọn địa chỉ để ghi trước tiên</string>
+<string name="no_matching_memory_address_found">Không tìm thấy địa chỉ bộ nhớ phù hợp</string>
+<string name="search_results_n_matches">Kết quả tìm kiếm: %d kết quả trùng khớp</string>
+<string name="please_enter_a_valid_number">Vui lòng nhập một số hợp lệ (hệ thập lục phân)</string>
+<string name="search_failed">Tìm kiếm thất bại: </string>
+<string name="address_selected">Địa chỉ đã chọn: </string>
+<string name="please_select_the_memory_address_to_write_to_first">Vui lòng chọn địa chỉ bộ nhớ để ghi trước tiên</string>
+<string name="please_enter_the_value_to_write">Vui lòng nhập giá trị để ghi</string>
+<string name="the_value_to_be_written_cannot_be_greater_than">Giá trị cần ghi không được lớn hơn</string>
+<string name="write_successful">Ghi thành công</string>
+<string name="write_failed">Ghi thất bại</string>
+<string name="memory_search">Tìm kiếm Bộ nhớ</string>
+<string name="search_type_hint">Loại Tìm kiếm:</string>
+<string name="search_value_hint">Giá trị Tìm kiếm:</string>
+<string name="please_enter_the_value_to_search">Vui lòng nhập giá trị để tìm kiếm</string>
+<string name="start_search">Bắt đầu Tìm kiếm</string>
+<string name="search_results_list_hint">Danh sách kết quả tìm kiếm</string>
+<string name="memory_write">Ghi Bộ nhớ</string>
+<string name="enter_the_value_to_write">Nhập giá trị để ghi</string>
+
 	<string name="show_trophy_info">Hiển thị thông tin cúp</string>
 <string name="create_ppu_cache">Tạo bộ nhớ đệm PPU</string>
 <string name="delete_ppu_cache">Xóa bộ nhớ đệm PPU</string>

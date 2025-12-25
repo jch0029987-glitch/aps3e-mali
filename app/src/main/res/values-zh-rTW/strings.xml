@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="creating_ppu_cache">正在建立 PPU 快取</string>
+<string name="please_enter_a_search_value">請輸入搜尋值</string>
+<string name="search_value_cannot_be_greater_than">搜尋值不能大於</string>
+<string name="search_results_0_matches">搜尋結果：0 筆符合</string>
+<string name="please_select_the_address_to_write_to_first">請先選擇要寫入的位址</string>
+<string name="no_matching_memory_address_found">找不到符合的記憶體位址</string>
+<string name="search_results_n_matches">搜尋結果：%d 筆符合</string>
+<string name="please_enter_a_valid_number">請輸入有效的數字（十六進位）</string>
+<string name="search_failed">搜尋失敗：</string>
+<string name="address_selected">已選擇位址：</string>
+<string name="please_select_the_memory_address_to_write_to_first">請先選擇要寫入的記憶體位址</string>
+<string name="please_enter_the_value_to_write">請輸入要寫入的值</string>
+<string name="the_value_to_be_written_cannot_be_greater_than">要寫入的值不能大於</string>
+<string name="write_successful">寫入成功</string>
+<string name="write_failed">寫入失敗</string>
+<string name="memory_search">記憶體搜尋</string>
+<string name="search_type_hint">搜尋類型：</string>
+<string name="search_value_hint">搜尋值：</string>
+<string name="please_enter_the_value_to_search">請輸入要搜尋的值</string>
+<string name="start_search">開始搜尋</string>
+<string name="search_results_list_hint">搜尋結果清單</string>
+<string name="memory_write">記憶體寫入</string>
+<string name="enter_the_value_to_write">輸入要寫入的值</string>
+
 	<string name="show_trophy_info">顯示獎盃資訊</string>
 <string name="create_ppu_cache">建立 PPU 快取</string>
 <string name="delete_ppu_cache">刪除 PPU 快取</string>

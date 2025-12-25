@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="creating_ppu_cache">正在创建PPU缓存</string>
+<string name="please_enter_a_search_value">请输入搜索值</string>
+<string name="search_value_cannot_be_greater_than">搜索值不能大于</string>
+<string name="search_results_0_matches">搜索结果：0个匹配项</string>
+<string name="please_select_the_address_to_write_to_first">请先选择要写入的地址</string>
+<string name="no_matching_memory_address_found">未找到匹配的内存地址</string>
+<string name="search_results_n_matches">搜索结果：%d个匹配项</string>
+<string name="please_enter_a_valid_number">请输入有效的数字（十六进制）</string>
+<string name="search_failed">搜索失败：</string>
+<string name="address_selected">已选择地址：</string>
+<string name="please_select_the_memory_address_to_write_to_first">请先选择要写入的内存地址</string>
+<string name="please_enter_the_value_to_write">请输入要写入的值</string>
+<string name="the_value_to_be_written_cannot_be_greater_than">要写入的值不能大于</string>
+<string name="write_successful">写入成功</string>
+<string name="write_failed">写入失败</string>
+<string name="memory_search">内存搜索</string>
+<string name="search_type_hint">搜索类型：</string>
+<string name="search_value_hint">搜索值：</string>
+<string name="please_enter_the_value_to_search">请输入要搜索的值</string>
+<string name="start_search">开始搜索</string>
+<string name="search_results_list_hint">搜索结果列表</string>
+<string name="memory_write">内存写入</string>
+<string name="enter_the_value_to_write">输入要写入的值</string>
+
 <string name="show_trophy_info">显示奖杯信息</string>
 <string name="create_ppu_cache">创建PPU缓存</string>
 <string name="delete_ppu_cache">删除PPU缓存</string>

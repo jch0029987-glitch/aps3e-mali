@@ -194,6 +194,9 @@ public class AboutActivity extends AppCompatActivity {
                 + " *修复每次更新时按键错位的问题\n"
                 + " *添加显示奖杯信息选项\n"
                 + " *添加创建/删除PPU缓存，删除SPU缓存选项\n"
+                + "1.34(2025-12-26)\n"
+                + " *优化创建PPU缓存\n"
+                + " *内存搜索/写入（未测试）\n"
                 + " \n";
 
         return log;

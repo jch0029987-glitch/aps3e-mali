@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+	<string name="creating_ppu_cache">Створення кешу PPU</string>
+<string name="please_enter_a_search_value">Будь ласка, введіть значення для пошуку</string>
+<string name="search_value_cannot_be_greater_than">Значення пошуку не може бути більшим за</string>
+<string name="search_results_0_matches">Результати пошуку: 0 збігів</string>
+<string name="please_select_the_address_to_write_to_first">Будь ласка, спочатку виберіть адресу для запису</string>
+<string name="no_matching_memory_address_found">Не знайдено відповідної адреси пам`яті</string>
+<string name="search_results_n_matches">Результати пошуку: %d збігів</string>
+<string name="please_enter_a_valid_number">Будь ласка, введіть дійсне число (шістнадцяткове)</string>
+<string name="search_failed">Пошук не вдався: </string>
+<string name="address_selected">Вибрана адреса: </string>
+<string name="please_select_the_memory_address_to_write_to_first">Будь ласка, спочатку виберіть адресу пам`яті для запису</string>
+<string name="please_enter_the_value_to_write">Будь ласка, введіть значення для запису</string>
+<string name="the_value_to_be_written_cannot_be_greater_than">Значення для запису не може бути більшим за</string>
+<string name="write_successful">Запис успішний</string>
+<string name="write_failed">Запис не вдався</string>
+<string name="memory_search">Пошук у пам`яті</string>
+<string name="search_type_hint">Тип пошуку:</string>
+<string name="search_value_hint">Значення пошуку:</string>
+<string name="please_enter_the_value_to_search">Будь ласка, введіть значення для пошуку</string>
+<string name="start_search">Почати пошук</string>
+<string name="search_results_list_hint">Список результатів пошуку</string>
+<string name="memory_write">Запис у пам`ять</string>
+<string name="enter_the_value_to_write">Введіть значення для запису</string>
+
 <string name="show_trophy_info">Показати інформацію про трофеї</string>
 <string name="create_ppu_cache">Створити кеш PPU</string>
 <string name="delete_ppu_cache">Видалити кеш PPU</string>

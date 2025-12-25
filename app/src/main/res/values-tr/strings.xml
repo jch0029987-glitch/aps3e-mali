@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+	<string name="creating_ppu_cache">PPU önbelleği oluşturuluyor</string>
+<string name="please_enter_a_search_value">Lütfen bir arama değeri girin</string>
+<string name="search_value_cannot_be_greater_than">Arama değeri şundan büyük olamaz</string>
+<string name="search_results_0_matches">Arama sonuçları: 0 eşleşme</string>
+<string name="please_select_the_address_to_write_to_first">Lütfen önce yazmak için bir adres seçin</string>
+<string name="no_matching_memory_address_found">Eşleşen bellek adresi bulunamadı</string>
+<string name="search_results_n_matches">Arama sonuçları: %d eşleşme</string>
+<string name="please_enter_a_valid_number">Lütfen geçerli bir sayı girin (onaltılık)</string>
+<string name="search_failed">Arama başarısız oldu: </string>
+<string name="address_selected">Seçilen adres: </string>
+<string name="please_select_the_memory_address_to_write_to_first">Lütfen önce yazmak için bellek adresini seçin</string>
+<string name="please_enter_the_value_to_write">Lütfen yazmak için bir değer girin</string>
+<string name="the_value_to_be_written_cannot_be_greater_than">Yazılacak değer şundan büyük olamaz</string>
+<string name="write_successful">Yazma işlemi başarılı</string>
+<string name="write_failed">Yazma işlemi başarısız oldu</string>
+<string name="memory_search">Bellek Arama</string>
+<string name="search_type_hint">Arama Türü:</string>
+<string name="search_value_hint">Arama Değeri:</string>
+<string name="please_enter_the_value_to_search">Lütfen aramak için bir değer girin</string>
+<string name="start_search">Aramayı Başlat</string>
+<string name="search_results_list_hint">Arama sonuçları listesi</string>
+<string name="memory_write">Belleğe Yaz</string>
+<string name="enter_the_value_to_write">Yazılacak değeri girin</string>
+
 <string name="show_trophy_info">Kupa Bilgilerini Göster</string>
 <string name="create_ppu_cache">PPU Önbelleği Oluştur</string>
 <string name="delete_ppu_cache">PPU Önbelleğini Sil</string>
