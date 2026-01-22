@@ -15,13 +15,24 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Gradle
-        run: |
-          chmod +x ./gradlew
-          ./gradlew assembleDebug
+      - name: Setup Android NDK
+        uses: android-actions/setup-android@v3
 
-      - name: Upload Pixel 7 APK
+      - name: Make Gradle Executable
+        run: |
+          find . -name "gradlew" -exec chmod +x {} \;
+
+      - name: Build Optimized APK
+        run: |
+          # This command attempts to build even if the project is in a subfolder
+          if [ -f "./gradlew" ]; then
+            ./gradlew assembleDebug --stacktrace
+          else
+            cd $(find . -name "gradlew" -printf '%h' -quit) && ./gradlew assembleDebug --stacktrace
+          fi
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: aPS3e-Mali-Optimized
-          path: app/build/outputs/apk/debug/*.apk
+          name: aPS3e-Pixel7-Optimized
+          path: "**/*.apk"
