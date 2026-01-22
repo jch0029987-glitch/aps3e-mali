@@ -15,24 +15,22 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Android NDK
-        uses: android-actions/setup-android@v3
-
-      - name: Make Gradle Executable
+      - name: Prepare aPS3e Build Files
         run: |
-          find . -name "gradlew" -exec chmod +x {} \;
-
-      - name: Build Optimized APK
-        run: |
-          # This command attempts to build even if the project is in a subfolder
-          if [ -f "./gradlew" ]; then
-            ./gradlew assembleDebug --stacktrace
-          else
-            cd $(find . -name "gradlew" -printf '%h' -quit) && ./gradlew assembleDebug --stacktrace
+          # aPS3e specific: rename the backup build file so Gradle can see it
+          if [ -f "app/build.gradle.bak" ]; then
+            mv app/build.gradle.bak app/build.gradle
+            echo "Renamed build.gradle.bak to build.gradle"
           fi
+          chmod +x ./gradlew
 
-      - name: Upload APK
+      - name: Build with Gradle
+        run: |
+          # Use the explicit path to the app module
+          ./gradlew :app:assembleDebug --stacktrace
+
+      - name: Upload Pixel 7 APK
         uses: actions/upload-artifact@v4
         with:
           name: aPS3e-Pixel7-Optimized
-          path: "**/*.apk"
+          path: app/build/outputs/apk/debug/*.apk
