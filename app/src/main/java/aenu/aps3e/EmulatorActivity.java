@@ -134,6 +134,12 @@ public class EmulatorActivity extends Activity implements View.OnGenericMotionLi
 
 			boolean enable_log=getSharedPreferences("debug",MODE_PRIVATE).getBoolean("enable_log",false);
 			Emulator.get.set_env("APS3E_ENABLE_LOG",Boolean.toString(enable_log));
+			    if (enable_log) {
+        updateLog("System: Debug Logging is ENABLED");
+    } else {
+        updateLog("System: Debug Logging is DISABLED (Check Settings)");
+    }
+
 		}
 
 		//setup game path
