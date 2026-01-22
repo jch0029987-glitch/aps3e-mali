@@ -24,12 +24,13 @@
     </FrameLayout>
 
     <!-- 侧边栏 -->
-    <LinearLayout
+        <LinearLayout
         android:id="@+id/sidebar"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:orientation="vertical"
+        android:background="#FF333333" 
         android:padding="16dp">
 
         <Button
@@ -46,5 +47,38 @@
             android:text="@string/quit"
             android:layout_marginBottom="12dp"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#55FFFFFF"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Console Logs"
+            android:textColor="#BBBBBB"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <ScrollView
+            android:id="@+id/log_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#11000000">
+
+            <TextView
+                android:id="@+id/log_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[System info]: Ready..."
+                android:textColor="#00FF00"
+                android:fontFamily="monospace"
+                android:textSize="10sp" />
+        </ScrollView>
+
     </LinearLayout>
+
 </androidx.drawerlayout.widget.DrawerLayout>
