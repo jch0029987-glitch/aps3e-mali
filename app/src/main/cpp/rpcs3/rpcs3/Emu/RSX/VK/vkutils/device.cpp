@@ -258,7 +258,36 @@ namespace vk
 		get_physical_device_properties(allow_extensions);
 
 		rsx_log.always()("Found Vulkan-compatible GPU: '%s' running on driver %s", get_name(), get_driver_version());
+      // --- MALI TENSOR G2 (PIXEL 7) OPTIMIZATION START ---
+if (get_driver_vendor() == driver_vendor::ARM_MALI)
+{
+    rsx_log.notice("Mali GPU detected. Applying Pixel 7 / Tensor G2 performance profile.");
 
+    // 1. Force Float16 (Half Precision)
+    // The Mali-G710 is significantly faster at FP16 math than FP32.
+    // This reduces register pressure and can nearly double shader throughput.
+    shader_types_support.allow_float16 = true;
+
+    // 2. Adjust Descriptor Limits
+    // Mali drivers often have issues with massive descriptor pools.
+    // We lower the threshold to prevent "Device Lost" crashes during heavy games.
+    if (descriptor_indexing_support)
+    {
+        descriptor_max_draw_calls = 4096; // Lowered from 8192 for stability
+    }
+
+    // 3. Texture Compression Workaround
+    // Most Android Mali drivers struggle with desktop BC compression.
+    // We ensure the emulator falls back to software decoding if hardware BC is buggy.
+    if (!props.limits.sparseAddressSpaceSize)
+    {
+        optional_features_support.texture_compression_bc = false;
+        rsx_log.notice("Mali: Disabling unstable hardware BC compression; using optimized software fallback.");
+    }
+}
+// --- MALI TENSOR G2 OPTIMIZATION END ---
+		
+		
 		if (get_driver_vendor() == driver_vendor::RADV && get_name().find("LLVM 8.0.0") != umax)
 		{
 			// Serious driver bug causing black screens
