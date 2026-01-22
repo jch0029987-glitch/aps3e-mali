@@ -60,15 +60,17 @@
 			android:exported="false"
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 			android:launchMode="singleTask"/>
-		<activity android:name="aenu.aps3e.EmulatorActivity"
-
-			android:screenOrientation="sensorLandscape"
-			android:launchMode="singleTask"
-			android:configChanges="layoutDirection|locale|orientation|uiMode|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
-			android:exported="true"
-			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-			android:process=":emu"
-			>
+	<activity android:name="aenu.aps3e.EmulatorActivity"
+    android:screenOrientation="sensorLandscape"
+    android:launchMode="singleTask"
+    android:configChanges="layoutDirection|locale|orientation|uiMode|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+    android:exported="true"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+    android:process=":emu"
+    android:showWhenLocked="true"
+    android:turnScreenOn="true">
+</activity>
+		
 			<intent-filter>
 				<action android:name="aenu.intent.action.APS3E" />
 				<category android:name="android.intent.category.DEFAULT" />
