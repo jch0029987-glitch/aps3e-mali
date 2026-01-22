@@ -42,6 +42,8 @@ public class EmulatorActivity extends Activity implements View.OnGenericMotionLi
     private SparseIntArray keysMap = new SparseIntArray();
     private GameFrameView gv;
     private DrawerLayout drawerLayout;
+    private TextView logTextView;
+    private ScrollView logScrollView;
 
 	private Vibrator vibrator=null;
 	private VibrationEffect vibrationEffect=null;
@@ -75,6 +77,13 @@ public class EmulatorActivity extends Activity implements View.OnGenericMotionLi
 
 	void on_create(){
 		setContentView(R.layout.emulator_view);
+		        // Connect the code to the XML IDs you created earlier
+        logTextView = (TextView)findViewById(R.id.log_text_view);
+        logScrollView = (ScrollView)findViewById(R.id.log_scroll_view);
+
+        // A test message to make sure the sidebar log is working
+        updateLog("aPS3e: Graphics Engine Initialized");
+
 		drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 		gv=(GameFrameView)findViewById(R.id.emulator_view);
 
@@ -708,4 +717,23 @@ public class EmulatorActivity extends Activity implements View.OnGenericMotionLi
         Emulator.get.setup_surface(null);
     //}
 	}
+	    // This function allows the emulator to send text to your sidebar
+    public void updateLog(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (logTextView != null) {
+                    logTextView.append("\n" + text);
+                    // This part makes the box automatically scroll to the newest line
+                    logScrollView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            logScrollView.fullScroll(View.FOCUS_DOWN);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
 }
