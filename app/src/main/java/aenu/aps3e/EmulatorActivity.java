@@ -134,6 +134,25 @@ public class EmulatorActivity extends Activity implements View.OnGenericMotionLi
 
 			boolean enable_log=getSharedPreferences("debug",MODE_PRIVATE).getBoolean("enable_log",false);
 			Emulator.get.set_env("APS3E_ENABLE_LOG",Boolean.toString(enable_log));
+			Emulator.get.set_env("APS3E_DISABLE_ZCULL", "true"); 
+Emulator.get.set_env("APS3E_FORCE_LOW_PRECISION", "true");
+Emulator.get.set_env("APS3E_VULKAN_DISABLE_ROBUSTNESS", "true");
+Emulator.get.set_env("APS3E_VULKAN_MT_COMMAND_BUFFER", "true");
+			Emulator.get.set_env("APS3E_VULKAN_STRICT_RENDER_PASS", "false"); // Huge for Tensor G2 thermal stability
+Emulator.get.set_env("APS3E_TENSOR_G2_OPTIMIZATION", "true");    // Specifically triggers Valhall GPU paths
+Emulator.get.set_env("APS3E_FORCE_LOW_PRECISION", "true");       // Tensor G2 thrives on 16-bit math
+Emulator.get.set_env("APS3E_RESOLUTION_SCALE", "60");     // Force 720p internally (Prevents overheating
+	// Enables the multi-threaded recompiler (The 'Threaded Optimization')
+Emulator.get.set_env("APS3E_THREADED_RECOMPILER", "true");
+
+// Forces the emulator to use 4 high-performance threads (Matching Tensor's 2 Big + 2 Medium)
+Emulator.get.set_env("APS3E_THREAD_COUNT", "4");
+
+// Forces the RSX (Graphics) thread to stay away from the 'Little' efficiency cores
+Emulator.get.set_env("APS3E_AFFINITY_MASK", "0xF0"); 
+
+// Helps the PPU/SPU threads stay in sync on Tensor's heterogeneous architecture
+Emulator.get.set_env("APS3E_SYNC_SMC", "true");	
 			    if (enable_log) {
         updateLog("System: Debug Logging is ENABLED");
     } else {
