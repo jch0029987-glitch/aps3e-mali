@@ -144,7 +144,7 @@ Emulator.get.set_env("APS3E_FORCE_LOW_PRECISION", "true");       // Tensor G2 th
 Emulator.get.set_env("APS3E_RESOLUTION_SCALE", "60");     // Force 720p internally (Prevents overheating
 	// Enables the multi-threaded recompiler (The 'Threaded Optimization')
 Emulator.get.set_env("APS3E_THREADED_RECOMPILER", "true");
-
+Emulator.get.set_env("APS3E_STORAGE_BUFFER_SIZE", "1024");
 // Forces the emulator to use 4 high-performance threads (Matching Tensor's 2 Big + 2 Medium)
 Emulator.get.set_env("APS3E_THREAD_COUNT", "4");
 
@@ -760,5 +760,18 @@ Emulator.get.set_env("APS3E_SYNC_SMC", "true");
             }
         });
     }
-
+/
+private void checkThermalStatus() {
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        int status = pm.getCurrentThermalStatus();
+        
+        if (status >= PowerManager.THERMAL_STATUS_MODERATE) {
+            updateLog("⚠️ TENSOR ALERT: Thermal Throttling Detected!");
+        } else if (status == PowerManager.THERMAL_STATUS_NONE) {
+            updateLog("❄️ System Temp: Optimal");
+        }
+    }
+}
+	
 }
