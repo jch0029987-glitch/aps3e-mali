@@ -760,7 +760,6 @@ Emulator.get.set_env("APS3E_SYNC_SMC", "true");
             }
         });
     }
-/
 private void checkThermalStatus() {
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
