@@ -91,14 +91,13 @@ turboToggle.setOnCheckedChangeListener((v, isChecked) -> {
         Emulator.get.set_env("APS3E_FRAME_LIMIT", "1");   // Normal speed
         updateLog("⚖️ Turbo: OFF");
     }
-    Emulator.get.reload_config(); 
 });
 		
 		// 1. Setup the Memory Searcher Button
     Button cheatBtn = (Button)findViewById(R.id.btn_memory_search);
     cheatBtn.setOnClickListener(v -> {
         // This triggers the native aPS3e searcher popup
-        Emulator.get.show_memory_searcher();
+        Emulator.get.show_memory_search_view();
         updateLog("🔍 Memory Searcher: Initializing...");
     });
 
@@ -106,7 +105,7 @@ turboToggle.setOnCheckedChangeListener((v, isChecked) -> {
     Button quitBtn = (Button)findViewById(R.id.btn_quit);
     quitBtn.setOnClickListener(v -> {
         updateLog("👋 Shutting down engine...");
-        Emulator.get.stop(); // Stops the PS3 environment
+        Emulator.get.quit(); // Stops the PS3 environment
         finish();            // Closes the app window
     });
 		
@@ -128,7 +127,6 @@ fpsToggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
 	
     
     // 3. Refresh the engine so it updates immediately
-    Emulator.get.reload_config(); 
 });
 		 // Fixes GPU flickering on Tensor G2
     Emulator.get.set_env("MALI_USE_STRICT_SYNC", "true");
