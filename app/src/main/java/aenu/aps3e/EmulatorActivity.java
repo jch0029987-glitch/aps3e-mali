@@ -80,6 +80,36 @@ public class EmulatorActivity extends Activity implements View.OnGenericMotionLi
 		        // Connect the code to the XML IDs you created earlier
         logTextView = (TextView)findViewById(R.id.log_text_view);
         logScrollView = (ScrollView)findViewById(R.id.log_scroll_view);
+		
+// A. Hook up the Turbo Mode Toggle
+SwitchMaterial turboToggle = findViewById(R.id.toggle_turbo_mode);
+turboToggle.setOnCheckedChangeListener((v, isChecked) -> {
+    if (isChecked) {
+        Emulator.get.set_env("APS3E_FRAME_LIMIT", "0");   // Fast forward ON
+        updateLog("🚀 Turbo: UNLOCKED");
+    } else {
+        Emulator.get.set_env("APS3E_FRAME_LIMIT", "1");   // Normal speed
+        updateLog("⚖️ Turbo: OFF");
+    }
+    Emulator.get.reload_config(); 
+});
+		
+		// 1. Setup the Memory Searcher Button
+    Button cheatBtn = (Button)findViewById(R.id.btn_memory_search);
+    cheatBtn.setOnClickListener(v -> {
+        // This triggers the native aPS3e searcher popup
+        Emulator.get.show_memory_searcher();
+        updateLog("🔍 Memory Searcher: Initializing...");
+    });
+
+    // 2. Setup the Quit Button
+    Button quitBtn = (Button)findViewById(R.id.btn_quit);
+    quitBtn.setOnClickListener(v -> {
+        updateLog("👋 Shutting down engine...");
+        Emulator.get.stop(); // Stops the PS3 environment
+        finish();            // Closes the app window
+    });
+		
 		// 1. Link the Java variable to the XML ID
 SwitchMaterial fpsToggle = findViewById(R.id.toggle_fps_overlay);
 
@@ -95,10 +125,26 @@ fpsToggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
         Emulator.get.set_env("APS3E_SHOW_PERF_OVERLAY", "false");
         updateLog("🚫 Detailed Stats: OFF");
     }
+	
     
     // 3. Refresh the engine so it updates immediately
     Emulator.get.reload_config(); 
 });
+		 // Fixes GPU flickering on Tensor G2
+    Emulator.get.set_env("MALI_USE_STRICT_SYNC", "true");
+    
+    // Forces the Mali GPU to stay active
+    Emulator.get.set_env("MALI_DEBUG_DISABLE_QUIRKS", "1");
+    
+    // Fixes UI 'black squares' common in menus
+    Emulator.get.set_env("APS3E_RELAXED_ZCULL_SYNC", "true");
+    
+    // Ensures temperature monitoring is ready
+    Emulator.get.set_env("APS3E_MONITOR_TEMP", "true");
+    Emulator.get.set_env("APS3E_OVERLAY_POSITION", "1"); // Top Right
+
+    updateLog("🚀 System: All Mali Optimizations Applied");
+	}
 		
 // 1. Turn on the overlay
     Emulator.get.set_env("APS3E_SHOW_PERF_OVERLAY", "true");
