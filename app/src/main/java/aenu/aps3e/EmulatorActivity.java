@@ -97,7 +97,7 @@ turboToggle.setOnCheckedChangeListener((v, isChecked) -> {
     Button cheatBtn = (Button)findViewById(R.id.btn_memory_search);
     cheatBtn.setOnClickListener(v -> {
         // This triggers the native aPS3e searcher popup
-        Emulator.get.show_memory_search_view();
+        show_memory_search_view();
         updateLog("🔍 Memory Searcher: Initializing...");
     });
 
