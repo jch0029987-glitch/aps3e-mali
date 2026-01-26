@@ -32,6 +32,15 @@
         android:orientation="vertical"
         android:background="#FF333333" 
         android:padding="16dp">
+            <com.google.android.material.switchmaterial.SwitchMaterial
+    android:id="@+id/toggle_fps_overlay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Show Detailed Overlay"
+    android:textColor="#FFFFFF"
+    android:padding="16dp"
+    android:checked="false" />
+            
 
         <Button
             android:id="@+id/btn_memory_search"
