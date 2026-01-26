@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aenu.hardware.ProcessorInfo;
-import androidx.appcompat.widget.SwitchCompat
+import androidx.appcompat.widget.SwitchCompat;
 //import org.libsdl.app.*;
 
 public class EmulatorActivity extends Activity implements View.OnGenericMotionListener,SurfaceHolder.Callback
@@ -82,7 +82,7 @@ public class EmulatorActivity extends Activity implements View.OnGenericMotionLi
         logScrollView = (ScrollView)findViewById(R.id.log_scroll_view);
 		
 // A. Hook up the Turbo Mode Toggle
-SwitchCompact turboToggle = findViewById(R.id.toggle_turbo_mode);
+SwitchCompat turboToggle = findViewById(R.id.toggle_turbo_mode);
 turboToggle.setOnCheckedChangeListener((v, isChecked) -> {
     if (isChecked) {
         Emulator.get.set_env("APS3E_FRAME_LIMIT", "0");   // Fast forward ON
@@ -111,7 +111,7 @@ turboToggle.setOnCheckedChangeListener((v, isChecked) -> {
     });
 		
 		// 1. Link the Java variable to the XML ID
-SwitchCompact fpsToggle = findViewById(R.id.toggle_fps_overlay);
+SwitchCompat fpsToggle = findViewById(R.id.toggle_fps_overlay);
 
 // 2. Set the "Switch Flipped" logic
 fpsToggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
