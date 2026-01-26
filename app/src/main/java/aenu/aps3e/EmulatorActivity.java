@@ -80,7 +80,37 @@ public class EmulatorActivity extends Activity implements View.OnGenericMotionLi
 		        // Connect the code to the XML IDs you created earlier
         logTextView = (TextView)findViewById(R.id.log_text_view);
         logScrollView = (ScrollView)findViewById(R.id.log_scroll_view);
+		// 1. Link the Java variable to the XML ID
+SwitchMaterial fpsToggle = findViewById(R.id.toggle_fps_overlay);
 
+// 2. Set the "Switch Flipped" logic
+fpsToggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
+    if (isChecked) {
+        // Detailed mode for Pixel 7 (FPS, PPU/RSX Load, Temp)
+        Emulator.get.set_env("APS3E_SHOW_PERF_OVERLAY", "true");
+        Emulator.get.set_env("APS3E_OVERLAY_DETAIL", "2"); 
+        Emulator.get.set_env("APS3E_MONITOR_TEMP", "true");
+        updateLog("📊 Detailed Stats: ON");
+    } else {
+        Emulator.get.set_env("APS3E_SHOW_PERF_OVERLAY", "false");
+        updateLog("🚫 Detailed Stats: OFF");
+    }
+    
+    // 3. Refresh the engine so it updates immediately
+    Emulator.get.reload_config(); 
+});
+		
+// 1. Turn on the overlay
+    Emulator.get.set_env("APS3E_SHOW_PERF_OVERLAY", "true");
+
+    // 2. Set to Detailed (FPS, CPU Load, GPU Load, and Temperature)
+    Emulator.get.set_env("APS3E_OVERLAY_DETAIL", "2");
+
+    // 3. Put it in the Top Right (Position 1)
+    Emulator.get.set_env("APS3E_OVERLAY_POSITION", "1");
+
+    // 4. Specifically enable thermal monitoring for Pixel 7
+    Emulator.get.set_env("APS3E_MONITOR_TEMP", "true");
         // A test message to make sure the sidebar log is working
         updateLog("aPS3e: Graphics Engine Initialized");
 
