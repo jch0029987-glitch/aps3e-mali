@@ -1,6 +1,6 @@
 # aPS3e - Pixel 7 & Tensor G2 Optimized Edition
 
-This branch contains specific hardware-level optimizations for the **Google Pixel 7 (Tensor G2)** and **Mali-G710 GPU**. It addresses common issues like flickering textures, thermal throttling, and CPU core mismanagement.
+This fork contains specific hardware-level optimizations for the **Google Pixel 7 (Tensor G2)** and **Mali-G710 GPU**. It addresses common issues like flickering textures, thermal throttling, and CPU core mismanagement.
 
 ---
 
