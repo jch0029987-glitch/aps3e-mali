@@ -144,7 +144,7 @@ fpsToggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
     Emulator.get.set_env("APS3E_OVERLAY_POSITION", "1"); // Top Right
 
     updateLog("🚀 System: All Mali Optimizations Applied");
-	}
+	
 		
 // 1. Turn on the overlay
     Emulator.get.set_env("APS3E_SHOW_PERF_OVERLAY", "true");
